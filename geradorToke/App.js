@@ -6,7 +6,7 @@ export default function App() {
   return (
     <View>
       <Text>
-        <Image source={require("../assets/logo.png")} style={ESTILO.logo}/>
+        <Image source={require("./assets/logo.png")} style={ESTILO.logo}/>
         Meu app!
       </Text>
     </View>
