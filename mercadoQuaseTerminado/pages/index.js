@@ -32,9 +32,10 @@ export default function Interface() {
     const [saveListModalVisible, setSaveListModalVisible] = useState(false);
     const [savedLists, setSavedLists] = useState([]);
     const [showInstructionsAlert, setShowInstructionsAlert] = useState(true);
-    const [user, setUser] = useState({ email: '', usuario: '' });
+    const [user, setUser] = useState({ email: '', usuario: '', nome: '', telefone: '' });
     const isGuest = route.params?.isGuest || false;
     const username = route.params?.username; // Utiliza o operador de encadeamento opcional
+    
 
     useEffect(() => {
         const getUser = async () => {
@@ -347,7 +348,7 @@ export default function Interface() {
                         <Text style={styles.usuario}>Olá, {user.usuario}</Text>
                         </>
                         )}
-                        <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('perfil')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('perfil', { isGuest })}>
                             <Ionicons
                                 name={"person-circle-outline"}
                                 size={40}
@@ -685,7 +686,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Raleway-SemiBold',
         fontSize: 22,
         color: '#000',
-        paddingRight: 70
+        width: 160,
+        paddingRight: 40
     },
     iconToggle2: {
         marginLeft: 'auto', // Empurra para a direita

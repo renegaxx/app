@@ -60,7 +60,7 @@ export default function Inicio() {
                         <Text style={styles.texto1}>
                             Entrar como
                         </Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('index', { isGuest: true })}>
+                        <TouchableOpacity onPress={() => navigation.navigate('index',  { isGuest: true })}>
                             <Text style={styles.textoConvida}> Convidado</Text>
                         </TouchableOpacity>
                     </View>

@@ -14,6 +14,8 @@ SplashScreen.preventAutoHideAsync();
 export default function Login() {
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
+    const [nome, setNome] = useState('');
+    const [telefone, setTelefone] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const navigation = useNavigation();
 

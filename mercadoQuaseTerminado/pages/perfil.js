@@ -7,11 +7,15 @@ import { Ionicons } from '@expo/vector-icons';
 import * as SplashScreen from 'expo-splash-screen';
 
 export default function Perfil() {
-    const [user, setUser] = useState({ email: '', usuario: '' });
+    const [user, setUser] = useState({ email: '', usuario: '', nome: '', telefone: '' });
+    const [telefone, setTelefone] = useState('');
     const navigation = useNavigation();
     const route = useRoute();
     const isGuest = route.params?.isGuest || false;
     const [savedLists, setSavedLists] = useState([]);
+    
+
+
 
 
     // fonte
@@ -24,7 +28,7 @@ export default function Perfil() {
         'Raleway-Medium': require('../assets/fonts/Raleway-Medium.ttf'),
         'Raleway-SemiBold': require('../assets/fonts/Raleway-SemiBold.ttf'),
     });
-    
+
 
 
 
@@ -43,15 +47,15 @@ export default function Perfil() {
 
     useEffect(() => {
         const getUser = async () => {
-            if (!isGuest) {
-                const userData = await AsyncStorage.getItem('user');
-                if (userData) {
-                    setUser(JSON.parse(userData));
-                }
-            }
+          const userData = await AsyncStorage.getItem('user');
+          if (userData) {
+            const { email, usuario, nome, telefone } = JSON.parse(userData);
+            setUser({ email, usuario, nome, telefone });
+          }
         };
         getUser();
-    }, [isGuest]);
+      }, []);
+
 
     return (
         <ScrollView>
@@ -64,7 +68,7 @@ export default function Perfil() {
                 ) : (
                     <>
                         <View style={styles.infoPega}>
-                            <Text style={styles.info1}>{user.usuario}</Text>
+                            <Text style={styles.info1}>{user.nome}</Text>
                             <Text style={styles.info2}>{user.email}</Text>
                         </View>
                     </>
@@ -73,41 +77,39 @@ export default function Perfil() {
                     <Text style={styles.sair}>Sair</Text>
                 </TouchableOpacity>
                 <View style={styles.conteudo}>
-                    <View style={styles.containerInfo}>
-                        <View style={styles.infoCont}>
+                    <View style={styles.azul}>
+                        <View style={styles.containerInfo}>
                             <Ionicons
-                                name={"bag"}
-                                size={40}
+                                name={"person-circle-outline"}
+                                size={20}
                                 style={styles.iconToggle}
                             />
                             <Text style={styles.text1}>
-                                Ultimo Produto
-                            </Text>
-                        </View>
-                        <View style={styles.linha}></View>
-                        <View style={styles.infoCont}>
-                            <Ionicons
-                                name={"cash"}
-                                size={40}
-                                style={styles.iconToggle}
-                            />
-                            <Text style={styles.text1}>
-                                Gastos
-                            </Text>
+                                Nome :
+                                
+                                        
+                                    
+                            </Text><Text style={styles.text2}>{user.nome}</Text>
 
                         </View>
-                        <View style={styles.linha}></View>
-                        <View style={styles.infoCont}>
+                        <View style={styles.containerInfo}>
                             <Ionicons
-                                name={"list"}
-                                size={40}
+                                name={"person-circle-outline"}
+                                size={20}
                                 style={styles.iconToggle}
                             />
                             <Text style={styles.text1}>
-                                Listas Criadas
-                            </Text>
+                                Nome :
+                                
+
+                                
+                                
+
+                            </Text><Text style={styles.text2}>{user.telefone}</Text>
+
                         </View>
                     </View>
+                    <View style={styles.linha}></View>
                     <View style={styles.containerCont2}>
                         <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('listasCriadas')}>
                             <View style={styles.cont2}>
@@ -178,16 +180,24 @@ const styles = StyleSheet.create({
         paddingRight: 10
     },
     containerInfo: {
-        flexDirection: 'row',
-        width: '85%',
-        alignItems: 'center',
-        marginRight: 'auto',
-        marginLeft: 'auto',
+        width: 150,
+        paddingLeft: 10,
+        margin: 20,
+
+
         backgroundColor: '#305BCC',
         borderRadius: 30,
         height: 100,
         marginTop: 20,
         justifyContent: 'center'
+    },
+    text2: {
+        fontSize: 30
+    },
+    azul: {
+        flexDirection: 'row',
+        marginRight: 'auto',
+        marginLeft: 'auto'
     },
     iconToggle: {
         color: 'white'
@@ -204,7 +214,6 @@ const styles = StyleSheet.create({
     },
     text1: {
         width: 90,
-        textAlign: 'center',
         fontSize: 12,
         color: 'white'
     },
@@ -230,9 +239,6 @@ const styles = StyleSheet.create({
     infoPega: {
         paddingTop: 10,
         textAlign: 'center',
-        alignItems: 'center',
-    },
-    infoCont: {
         alignItems: 'center',
     },
     info1: {
